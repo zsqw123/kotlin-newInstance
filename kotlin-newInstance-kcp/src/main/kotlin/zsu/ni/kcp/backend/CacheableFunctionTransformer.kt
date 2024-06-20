@@ -1,10 +1,10 @@
-package zsu.cacheable.kcp.backend
+package zsu.ni.kcp.backend
 
 import org.jetbrains.kotlin.ir.builders.*
 import org.jetbrains.kotlin.ir.declarations.IrSymbolOwner
 import org.jetbrains.kotlin.ir.expressions.IrBody
-import zsu.cacheable.kcp.backend.CacheableFunctionTransformer.Creator
-import zsu.cacheable.kcp.builder
+import zsu.ni.kcp.backend.CacheableFunctionTransformer.Creator
+import zsu.ni.kcp.builder
 
 abstract class CacheableFunctionTransformer(
     private val cacheableTransformContext: CacheableTransformContext,

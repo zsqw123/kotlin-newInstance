@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
-import zsu.cacheable.kcp.CacheableKCP
+import zsu.ni.kcp.NewInstanceKCP
 
 @OptIn(ExperimentalCompilerApi::class)
 class SimpleCacheableTest {
@@ -56,7 +56,7 @@ class SimpleCacheableTest {
 
         val compilation = KotlinCompilation().apply {
             sources = listOf(kotlinSource)
-            compilerPluginRegistrars = listOf(CacheableKCP())
+            compilerPluginRegistrars = listOf(NewInstanceKCP())
             inheritClassPath = true
             messageOutputStream = System.out
         }.compile()
@@ -124,7 +124,7 @@ class SimpleCacheableTest {
 
         val compilation = KotlinCompilation().apply {
             sources = listOf(kotlinSource)
-            compilerPluginRegistrars = listOf(CacheableKCP())
+            compilerPluginRegistrars = listOf(NewInstanceKCP())
             inheritClassPath = true
             messageOutputStream = System.out
         }.compile()

@@ -1,4 +1,4 @@
-package zsu.cacheable.kcp.backend
+package zsu.ni.kcp.backend
 
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrField

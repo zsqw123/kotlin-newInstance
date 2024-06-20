@@ -1,4 +1,4 @@
-package zsu.cacheable.kcp
+package zsu.ni.kcp
 
 import org.jetbrains.kotlin.analyzer.CompilationErrorException
 import org.jetbrains.kotlin.config.CompilerConfiguration
@@ -20,7 +20,7 @@ import org.jetbrains.kotlin.util.DummyLogger
 import org.jetbrains.kotlin.util.Logger
 import zsu.cacheable.CacheMode
 import zsu.cacheable.Cacheable
-import zsu.cacheable.kcp.backend.CacheableSymbols
+import zsu.ni.kcp.backend.CacheableSymbols
 
 const val CACHEABLE_FQN = "zsu.cacheable.Cacheable"
 

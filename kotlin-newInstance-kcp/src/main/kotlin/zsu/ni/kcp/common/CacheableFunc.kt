@@ -1,4 +1,4 @@
-package zsu.cacheable.kcp.common
+package zsu.ni.kcp.common
 
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrFunction
@@ -7,7 +7,7 @@ import org.jetbrains.kotlin.ir.types.classFqName
 import org.jetbrains.kotlin.ir.util.isInterface
 import org.jetbrains.kotlin.ir.util.kotlinFqName
 import org.jetbrains.kotlin.name.Name
-import zsu.cacheable.kcp.CacheableTransformError
+import zsu.ni.kcp.CacheableTransformError
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 

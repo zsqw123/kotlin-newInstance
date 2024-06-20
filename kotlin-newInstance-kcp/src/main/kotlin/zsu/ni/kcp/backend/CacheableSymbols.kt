@@ -1,4 +1,4 @@
-package zsu.cacheable.kcp.backend
+package zsu.ni.kcp.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.backend.common.ir.addExtensionReceiver

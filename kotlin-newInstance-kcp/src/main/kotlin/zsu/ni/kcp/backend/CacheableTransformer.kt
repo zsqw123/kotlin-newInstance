@@ -1,4 +1,4 @@
-package zsu.cacheable.kcp.backend
+package zsu.ni.kcp.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.backend.common.ir.moveBodyTo
@@ -14,8 +14,10 @@ import org.jetbrains.kotlin.ir.util.*
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformer
 import zsu.cacheable.CacheMode
 import zsu.cacheable.kcp.*
-import zsu.cacheable.kcp.common.CacheableFunc
-import zsu.cacheable.kcp.common.validationForCacheable
+import zsu.ni.kcp.*
+import zsu.ni.kcp.common.CacheableFunc
+import zsu.ni.kcp.common.validationForCacheable
+import zsu.ni.kcp.readCacheable
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 

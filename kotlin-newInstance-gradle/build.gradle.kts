@@ -29,7 +29,7 @@ gradlePlugin {
     website = projectGitUrl
     vcsUrl = projectGitUrl
     plugins {
-        create("kotlinCacheable") {
+        create("kotlinNewInstance") {
             id = "host.bytedance.kotlin-newInstance"
             displayName = "Plugin for cache all logic in kotlin through KCP."
             description = "Plugin for cache all logic in kotlin through KCP."
