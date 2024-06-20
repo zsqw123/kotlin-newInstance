@@ -20,7 +20,6 @@ import org.jetbrains.kotlin.util.DummyLogger
 import org.jetbrains.kotlin.util.Logger
 import zsu.cacheable.CacheMode
 import zsu.cacheable.Cacheable
-import zsu.ni.kcp.backend.CacheableSymbols
 
 const val CACHEABLE_FQN = "zsu.cacheable.Cacheable"
 
