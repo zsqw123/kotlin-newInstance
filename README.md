@@ -48,6 +48,11 @@ buildscript {
 apply(plugin = "host.bytedance.kotlin-newInstance")
 ```
 
+The plugin will be published both **gradle plugin portal**(at first) and **maven central**.
+
+- maven central: [![Maven Central](https://img.shields.io/maven-central/v/host.bytedance/kotlin-newInstance-gradle)](https://central.sonatype.com/artifact/host.bytedance/kotlin-newInstance-gradle)
+- gradle plugin portal: [![Gradle Plugin Portal Version](https://img.shields.io/gradle-plugin-portal/v/host.bytedance.kotlin-newInstance)](https://plugins.gradle.org/plugin/host.bytedance.kotlin-newInstance)
+
 ## License
 
 ```
