@@ -46,4 +46,7 @@ object NewInstance : IntrinsicMethod() {
             false
         )
     }
+
+    internal const val MAGIC_LDC = "zsu.ni.NewInstance"
 }
+

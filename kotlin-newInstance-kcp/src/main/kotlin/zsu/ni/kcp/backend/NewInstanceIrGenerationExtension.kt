@@ -15,8 +15,8 @@ class NewInstanceIrGenerationExtension : IrGenerationExtension {
     }
 
     override fun getPlatformIntrinsicExtension(backendContext: BackendContext): IrIntrinsicExtension? {
-        if (backendContext.ir.context !is JvmBackendContext) return null
-        return NewInstanceIntrinsic
+        if (backendContext !is JvmBackendContext) return null
+        return NewInstanceIntrinsic(backendContext)
     }
 
     companion object {

@@ -23,10 +23,13 @@ class SimpleNewInstanceTest {
             return newInstance()
         }
 
-        class Foo        
+        class Foo {
+            val c = 114514
+        }
 
-        fun main() {
+        class Bar {
             val foo = from<Foo>()
+            fun call() = foo.c
         }
     """
         )
@@ -40,5 +43,12 @@ class SimpleNewInstanceTest {
         }.compile()
         println(compilation.generatedFiles)
         Assertions.assertEquals(KotlinCompilation.ExitCode.OK, compilation.exitCode)
+
+        val classLoader = compilation.classLoader
+        val barClass = classLoader.loadClass("zsu.test.Bar")
+        val callMethod = barClass.getMethod("call")
+        val barInstance = barClass.getConstructor().newInstance()
+        val result = callMethod.invoke(barInstance)
+        Assertions.assertEquals(114514, result)
     }
 }
