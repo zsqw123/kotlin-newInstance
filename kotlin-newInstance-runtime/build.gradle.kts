@@ -1,16 +1,17 @@
 plugins {
-    kotlin("multiplatform")
-    id("kmpPublish")
+    kotlin("jvm")
+    id("jvmPublish")
+//    kotlin("multiplatform")
+//    id("kmpPublish")
 }
 
-kotlin {
-    jvm()
-    js {
-        browser()
-        nodejs()
-    }
-}
+// due to kcp has no such extension point
+// I don't want to support multiplatform currently.
 
-dependencies {
-
-}
+//kotlin {
+//    jvm()
+//    js {
+//        browser()
+//        nodejs()
+//    }
+//}

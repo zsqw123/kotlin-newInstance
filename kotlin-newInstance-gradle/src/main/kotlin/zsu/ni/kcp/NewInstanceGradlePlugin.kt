@@ -1,4 +1,4 @@
-package zsu.cacheable.kcp
+package zsu.ni.kcp
 
 import host.bytedance.BuildConfig
 import org.gradle.api.Project
@@ -6,7 +6,7 @@ import org.gradle.api.provider.Provider
 import org.jetbrains.kotlin.gradle.plugin.*
 
 @Suppress("unused")
-class CacheableGradlePlugin : KotlinCompilerPluginSupportPlugin {
+class NewInstanceGradlePlugin : KotlinCompilerPluginSupportPlugin {
     override fun apply(target: Project) {
         super.apply(target)
         val runtimeArtifact = "${BuildConfig.GROUP}:${BuildConfig.RUNTIME_NAME}:${BuildConfig.VERSION}"
@@ -17,7 +17,7 @@ class CacheableGradlePlugin : KotlinCompilerPluginSupportPlugin {
         return kotlinCompilation.target.project.provider { emptyList() }
     }
 
-    override fun getCompilerPluginId(): String = "zsu.kotlin-cacheable-kcp"
+    override fun getCompilerPluginId(): String = "zsu.kotlin-newInstance-kcp"
 
     private val artifact = SubpluginArtifact(
         BuildConfig.GROUP, BuildConfig.KCP_NAME, BuildConfig.VERSION,

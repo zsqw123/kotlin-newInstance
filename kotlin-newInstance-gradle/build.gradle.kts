@@ -31,10 +31,10 @@ gradlePlugin {
     plugins {
         create("kotlinNewInstance") {
             id = "host.bytedance.kotlin-newInstance"
-            displayName = "Plugin for cache all logic in kotlin through KCP."
-            description = "Plugin for cache all logic in kotlin through KCP."
+            displayName = "inline newInstance without reflection."
+            description = "inline newInstance without reflection."
             tags = listOf("kcp", "kotlin")
-            implementationClass = "zsu.cacheable.kcp.CacheableGradlePlugin"
+            implementationClass = "zsu.ni.kcp.NewInstanceGradlePlugin"
         }
     }
 }

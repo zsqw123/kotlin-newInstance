@@ -5,7 +5,6 @@ import org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen
 import org.jetbrains.kotlin.backend.jvm.codegen.JvmIrIntrinsicExtension
 import org.jetbrains.kotlin.backend.jvm.intrinsics.IntrinsicMethod
 import org.jetbrains.kotlin.codegen.inline.newMethodNodeWithCorrectStackSize
-import org.jetbrains.kotlin.codegen.optimization.common.removeAll
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.symbols.IrFunctionSymbol
 import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
@@ -19,7 +18,6 @@ import org.jetbrains.org.objectweb.asm.tree.AbstractInsnNode
 import org.jetbrains.org.objectweb.asm.tree.InsnList
 import org.jetbrains.org.objectweb.asm.tree.LdcInsnNode
 import zsu.ni.kcp.TAG
-import kotlin.math.max
 
 @OptIn(UnsafeDuringIrConstructionAPI::class)
 class NewInstanceIntrinsic(

@@ -1,4 +1,4 @@
-package zsu.cacheable.kcp.test
+package zsu.ni.kcp.test
 
 import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile

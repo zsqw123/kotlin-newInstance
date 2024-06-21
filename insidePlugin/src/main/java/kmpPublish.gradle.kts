@@ -70,7 +70,7 @@ if (canPublish) {
             // Provide artifacts information requited by Maven Central
             pom {
                 name.set("kotlin-newInstance")
-                description.set("Cache everything operations in Kotlin")
+                description.set("inline newInstance without reflection")
                 url.set(projectGitUrl)
 
                 licenses {
