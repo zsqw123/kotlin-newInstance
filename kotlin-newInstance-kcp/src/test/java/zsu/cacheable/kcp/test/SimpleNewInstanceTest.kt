@@ -3,33 +3,36 @@ package zsu.cacheable.kcp.test
 import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile
 import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
+import org.jetbrains.kotlin.config.JvmTarget
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+
 import zsu.ni.kcp.NewInstanceKCP
 
-@ExperimentalCompilerApi
-class FakeOverrideTest {
+@OptIn(ExperimentalCompilerApi::class)
+class SimpleNewInstanceTest {
     @Test
-    fun `fake override cacheable`() {
+    fun `simple new instance`() {
         val kotlinSource = SourceFile.kotlin(
-            "FakeOverride.kt", """
-        package zsu.test.fake
+            "Foo.kt", """
+        package zsu.test
 
-        import zsu.cacheable.Cacheable
+        import zsu.ni.newInstance
 
-        interface FakeInterface {
-            val v: List<String>
+        inline fun <reified T> from(): T {
+            return newInstance()
         }
 
-        abstract class AbsOverride : FakeInterface {
-            override val v: List<String> @Cacheable get() = emptyList()
-        }
+        class Foo        
 
-        class Child: AbsOverride(), FakeInterface
+        fun main() {
+            val foo = from<Foo>()
+        }
     """
         )
 
         val compilation = KotlinCompilation().apply {
+            jvmTarget = JvmTarget.JVM_17.description
             sources = listOf(kotlinSource)
             compilerPluginRegistrars = listOf(NewInstanceKCP())
             inheritClassPath = true

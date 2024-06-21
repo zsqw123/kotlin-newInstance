@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.backend.common.BackendContext
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrIntrinsicExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
+import org.jetbrains.kotlin.backend.jvm.JvmBackendContext
 import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
 import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
@@ -14,7 +15,8 @@ class NewInstanceIrGenerationExtension : IrGenerationExtension {
     }
 
     override fun getPlatformIntrinsicExtension(backendContext: BackendContext): IrIntrinsicExtension? {
-        return super.getPlatformIntrinsicExtension(backendContext)
+        if (backendContext.ir.context !is JvmBackendContext) return null
+        return NewInstanceIntrinsic
     }
 
     companion object {
