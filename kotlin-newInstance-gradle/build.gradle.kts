@@ -42,7 +42,7 @@ gradlePlugin {
 buildConfig {
     val kcpProject = project(":kotlin-newInstance-kcp")
     val runtimeProject = project(":kotlin-newInstance-runtime")
-    packageName(exGroup)
+    packageName("$exGroup.ni")
     buildConfigField("String", "GROUP", "\"$exGroup\"")
     buildConfigField("String", "KCP_NAME", "\"${kcpProject.name}\"")
     buildConfigField("String", "RUNTIME_NAME", "\"${runtimeProject.name}\"")

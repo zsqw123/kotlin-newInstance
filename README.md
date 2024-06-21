@@ -26,7 +26,7 @@ Recommended version alignments:
 
 | Kotlin | kotlin-newInstance-gradle |
 |--------|---------------------------|
-| 2.0.0  | \>= 0.0.1-beta            |
+| 2.0.0  | \>= 0.0.2-beta            |
 
 ```kotlin
 // Using the plugins DSL

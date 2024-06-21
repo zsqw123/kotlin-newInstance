@@ -1,18 +1,17 @@
 package host.bytedance
 
-import zsu.cacheable.Cacheable
+import zsu.ni.newInstance
 
-class Sample {
-    private var foo: Int = 0
+class Container<T>(val content: T)
 
-    @Cacheable
-    fun call() = ++foo
+inline fun <reified T> myContainer(): Container<T> {
+    val content = newInstance<T>() // <---- magic here!
+    return Container(content)
 }
+
+class Foo
 
 fun main() {
-    val sample = Sample()
-    assertAndPrint(1, sample.call())
-    assertAndPrint(1, sample.call())
-    assertAndPrint(1, sample.call())
+    val container = myContainer<Foo>()
+    val foo = container.content // <---- It's [Foo] instance here!
 }
-

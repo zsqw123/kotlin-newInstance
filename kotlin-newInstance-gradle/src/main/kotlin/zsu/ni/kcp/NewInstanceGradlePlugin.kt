@@ -1,6 +1,6 @@
 package zsu.ni.kcp
 
-import host.bytedance.BuildConfig
+import host.bytedance.ni.BuildConfig
 import org.gradle.api.Project
 import org.gradle.api.provider.Provider
 import org.jetbrains.kotlin.gradle.plugin.*
