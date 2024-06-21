@@ -2,7 +2,23 @@
 
 ## Usage
 
-non-reflection used `newInstance` for multiplatform
+non-reflection `newInstance` by Kotlin inline reified type parameter.
+
+```kotlin
+class Container<T>(val content: T)
+
+inline fun <reified T> myContainer(): Container<T> {
+    val content = newInstance<T>() // <---- magic here!
+    return Container(content)
+}
+
+class Foo
+
+fun main() {
+    val container = myContainer<Foo>()
+    val foo = container.content // <---- It's [Foo] instance here!
+}
+```
 
 ## Apply plugin
 
@@ -21,8 +37,8 @@ plugins {
 // or using legacy plugin application
 buildscript {
     repositories {
-        mavenCentral()
         gradlePluginPortal()
+        mavenCentral()
     }
     dependencies {
         classpath("host.bytedance:kotlin-newInstance-gradle:<latest>")
