@@ -51,4 +51,43 @@ class SimpleNewInstanceTest {
         val result = callMethod.invoke(barInstance)
         Assertions.assertEquals(114514, result)
     }
+
+    @Test
+    fun `new instance with args`() {
+        val kotlinSource = SourceFile.kotlin(
+            "Foo.kt", """
+        package zsu.test
+
+        import zsu.ni.newInstance
+
+        inline fun <reified T, reified P> from(payload: P): T {
+            return newInstance(payload)
+        }
+
+        class Foo(val i: Int)
+
+        class Bar {
+            val foo = from<Foo>(1)
+            fun call() = foo.i
+        }
+    """
+        )
+
+        val compilation = KotlinCompilation().apply {
+            jvmTarget = JvmTarget.JVM_17.description
+            sources = listOf(kotlinSource)
+            compilerPluginRegistrars = listOf(NewInstanceKCP())
+            inheritClassPath = true
+            messageOutputStream = System.out
+        }.compile()
+        println(compilation.generatedFiles)
+        Assertions.assertEquals(KotlinCompilation.ExitCode.OK, compilation.exitCode)
+
+//        val classLoader = compilation.classLoader
+//        val barClass = classLoader.loadClass("zsu.test.Bar")
+//        val callMethod = barClass.getMethod("call")
+//        val barInstance = barClass.getConstructor().newInstance()
+//        val result = callMethod.invoke(barInstance)
+//        Assertions.assertEquals(114514, result)
+    }
 }

@@ -10,28 +10,41 @@ import org.jetbrains.kotlin.codegen.inline.ReifiedTypeInliner.Companion.pluginIn
 import org.jetbrains.kotlin.codegen.inline.ReifiedTypeInliner.Companion.pluginIntrinsicsMarkerOwner
 import org.jetbrains.kotlin.codegen.inline.ReifiedTypeInliner.Companion.pluginIntrinsicsMarkerSignature
 import org.jetbrains.kotlin.ir.expressions.IrFunctionAccessExpression
+import org.jetbrains.kotlin.ir.types.IrType
 import org.jetbrains.org.objectweb.asm.commons.InstructionAdapter
+import zsu.ni.kcp.TAG
+import zsu.ni.kcp.log
 
 object NewInstance : IntrinsicMethod() {
     override fun invoke(
         expression: IrFunctionAccessExpression, codegen: ExpressionCodegen, data: BlockInfo,
-    ): PromisedValue? {
+    ): PromisedValue {
         val type = expression.getTypeArgument(0)!!
+        val payloadType = expression.getTypeArgument(1)
+        if (payloadType != null) {
+            insertInlineMarker(codegen, payloadType, MAGIC_PAYLOAD_LDC)
+        }
+        insertInlineMarker(codegen, type, MAGIC_NI_LDC)
+        return with(codegen) { expression.onStack }
+    }
+
+    private fun insertInlineMarker(
+        codegen: ExpressionCodegen, parameterType: IrType, magic: String
+    ) {
         val mv = codegen.mv
         val reifiedArgument = with(codegen.typeSystem) {
-            val typeParameter = type.typeConstructor().getTypeParameterClassifier()
-                ?: return super.invoke(expression, codegen, data)
-            ReificationArgument(typeParameter.getName().asString(), type.isMarkedNullable(), 0)
+            val typeParameterClassifier = parameterType.typeConstructor().getTypeParameterClassifier()
+            val typeParameterName = requireNotNull(typeParameterClassifier?.getName()) {
+                "$TAG cannot get parameter classifier name for ${parameterType.log()}"
+            }
+            ReificationArgument(typeParameterName.asString(), parameterType.isMarkedNullable(), 0)
         }
         // fake to kotlin typeOf operation
         ReifiedTypeInliner.putReifiedOperationMarker(
-            ReifiedTypeInliner.OperationKind.TYPE_OF, reifiedArgument, mv
+            ReifiedTypeInliner.OperationKind.TYPE_OF, reifiedArgument, codegen.mv
         )
         mv.aconst(null)
         mv.markPluginGenerated()
-        return with(codegen) {
-            expression.onStack
-        }
     }
 
     // we must use this operation to mark this reified operation will be proceeded by our plugin.
@@ -47,6 +60,7 @@ object NewInstance : IntrinsicMethod() {
         )
     }
 
-    internal const val MAGIC_LDC = "zsu.ni.NewInstance"
+    internal const val MAGIC_NI_LDC = "zsu.ni"
+    internal const val MAGIC_PAYLOAD_LDC = "zsu.ni.payload"
 }
 
