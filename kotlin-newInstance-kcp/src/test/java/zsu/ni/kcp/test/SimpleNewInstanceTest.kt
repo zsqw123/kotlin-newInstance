@@ -67,7 +67,7 @@ class SimpleNewInstanceTest {
         class Foo(val i: Int)
 
         class Bar {
-            val foo = from<Foo>(1)
+            val foo: Foo = from(1)
             fun call() = foo.i
         }
     """

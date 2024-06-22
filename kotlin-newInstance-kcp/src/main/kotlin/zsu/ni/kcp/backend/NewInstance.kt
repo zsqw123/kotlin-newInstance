@@ -44,14 +44,14 @@ object NewInstance : IntrinsicMethod() {
             ReifiedTypeInliner.OperationKind.TYPE_OF, reifiedArgument, codegen.mv
         )
         mv.aconst(null)
-        mv.markPluginGenerated()
+        mv.markPluginGenerated(magic)
     }
 
     // we must use this operation to mark this reified operation will be proceeded by our plugin.
     // Reference from kotlinx-serialization's `serializer` inline
     // https://github.com/JetBrains/kotlin/blob/master/plugins/kotlinx-serialization/kotlinx-serialization.backend/src/org/jetbrains/kotlinx/serialization/compiler/backend/ir/SerializationJvmIrIntrinsicSupport.kt
-    private fun InstructionAdapter.markPluginGenerated() {
-        aconst("zsu.ni.NewInstance")
+    private fun InstructionAdapter.markPluginGenerated(magic: String) {
+        aconst(magic)
         invokestatic(
             pluginIntrinsicsMarkerOwner,
             pluginIntrinsicsMarkerMethod,
