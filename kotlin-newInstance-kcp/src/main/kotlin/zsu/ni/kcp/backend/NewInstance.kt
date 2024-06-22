@@ -9,6 +9,7 @@ import org.jetbrains.kotlin.codegen.inline.ReifiedTypeInliner
 import org.jetbrains.kotlin.codegen.inline.ReifiedTypeInliner.Companion.pluginIntrinsicsMarkerMethod
 import org.jetbrains.kotlin.codegen.inline.ReifiedTypeInliner.Companion.pluginIntrinsicsMarkerOwner
 import org.jetbrains.kotlin.codegen.inline.ReifiedTypeInliner.Companion.pluginIntrinsicsMarkerSignature
+import org.jetbrains.kotlin.ir.backend.js.utils.typeArguments
 import org.jetbrains.kotlin.ir.expressions.IrFunctionAccessExpression
 import org.jetbrains.kotlin.ir.types.IrType
 import org.jetbrains.org.objectweb.asm.commons.InstructionAdapter
@@ -20,7 +21,7 @@ object NewInstance : IntrinsicMethod() {
         expression: IrFunctionAccessExpression, codegen: ExpressionCodegen, data: BlockInfo,
     ): PromisedValue {
         val type = expression.getTypeArgument(0)!!
-        val payloadType = expression.getTypeArgument(1)
+        val payloadType = expression.typeArguments.getOrNull(1)
         if (payloadType != null) {
             insertInlineMarker(codegen, payloadType, MAGIC_PAYLOAD_LDC)
         }

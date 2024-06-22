@@ -15,12 +15,14 @@ import org.jetbrains.kotlin.ir.types.isSubtypeOf
 import org.jetbrains.kotlin.ir.util.constructors
 import org.jetbrains.kotlin.ir.util.packageFqName
 import org.jetbrains.kotlin.load.kotlin.TypeMappingMode.Companion.DEFAULT_UAST
+import org.jetbrains.kotlin.load.kotlin.TypeMappingMode.Companion.GENERIC_ARGUMENT
 import org.jetbrains.org.objectweb.asm.Type
 import org.jetbrains.org.objectweb.asm.commons.InstructionAdapter
 import org.jetbrains.org.objectweb.asm.tree.AbstractInsnNode
 import org.jetbrains.org.objectweb.asm.tree.InsnList
 import org.jetbrains.org.objectweb.asm.tree.LdcInsnNode
 import zsu.ni.kcp.TAG
+import zsu.ni.kcp.loadWithAutoUnboxing
 import zsu.ni.kcp.log
 
 @OptIn(UnsafeDuringIrConstructionAPI::class)
@@ -84,19 +86,19 @@ class NewInstanceIntrinsic(
         return true
     }
 
-
     private fun writeNewInstanceCodeIntoNewMethod(
-        type: IrType, constructorDescriptor: String, payloadType: IrType?,
+        instanceType: IrType, constructorDescriptor: String, payloadType: IrType?,
     ) = newMethodNodeWithCorrectStackSize { mv ->
         val mapper = backendContext.defaultTypeMapper
-        val asmType = mapper.mapType(type, DEFAULT_UAST)
-        mv.anew(asmType)
+        val instanceAsmType = mapper.mapType(instanceType, DEFAULT_UAST)
+        mv.anew(instanceAsmType)
         mv.dup()
         if (payloadType != null) {
-            val payloadAsmType = mapper.mapType(payloadType, DEFAULT_UAST)
-            mv.load(0, payloadAsmType)
+            val payloadAsmType = mapper.mapType(payloadType, GENERIC_ARGUMENT)
+            val constructorPayloadType = Type.getArgumentTypes(constructorDescriptor).first()
+            mv.loadWithAutoUnboxing(0, payloadAsmType, constructorPayloadType)
         }
-        mv.invokespecial(asmType.internalName, "<init>", constructorDescriptor, false)
+        mv.invokespecial(instanceAsmType.internalName, "<init>", constructorDescriptor, false)
     }
 
     private fun findProperConstructor(

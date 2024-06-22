@@ -61,13 +61,16 @@ class SimpleNewInstanceTest {
         import zsu.ni.newInstance
 
         inline fun <reified T, reified P> from(payload: P): T {
+            val test = 2
+            val str = test.toString()
             return newInstance(payload)
         }
 
         class Foo(val i: Int)
 
         class Bar {
-            val foo: Foo = from(1)
+            val test = 4
+            val foo: Foo = from(1918)
             fun call() = foo.i
         }
     """
@@ -83,11 +86,11 @@ class SimpleNewInstanceTest {
         println(compilation.generatedFiles)
         Assertions.assertEquals(KotlinCompilation.ExitCode.OK, compilation.exitCode)
 
-//        val classLoader = compilation.classLoader
-//        val barClass = classLoader.loadClass("zsu.test.Bar")
-//        val callMethod = barClass.getMethod("call")
-//        val barInstance = barClass.getConstructor().newInstance()
-//        val result = callMethod.invoke(barInstance)
-//        Assertions.assertEquals(114514, result)
+        val classLoader = compilation.classLoader
+        val barClass = classLoader.loadClass("zsu.test.Bar")
+        val callMethod = barClass.getMethod("call")
+        val barInstance = barClass.getConstructor().newInstance()
+        val result = callMethod.invoke(barInstance)
+        Assertions.assertEquals(1918, result)
     }
 }
