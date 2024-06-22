@@ -23,7 +23,7 @@ fun main() {
 It also supports passing argument into `newInstance` function.
 
 ```kotlin
-inline fun <reified T> myContainer(arg: Int): Container<T> {
+inline fun <reified T, reified P> myContainer(arg: P): Container<T> {
     val content = newInstance<T>(arg) // <---- magic here!
     return Container(content)
 }
@@ -31,7 +31,7 @@ inline fun <reified T> myContainer(arg: Int): Container<T> {
 class Bar(val arg: Int)
 
 fun main() {
-    val container = myContainer<Bar>(114514)
+    val container: Bar = myContainer(114514)
     val bar = container.content // <---- It's [Bar] instance with arg=114514 here!
 }
 ```
