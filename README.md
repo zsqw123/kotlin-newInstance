@@ -20,13 +20,29 @@ fun main() {
 }
 ```
 
+It also supports passing argument into `newInstance` function.
+
+```kotlin
+inline fun <reified T> myContainer(arg: Int): Container<T> {
+    val content = newInstance<T>(arg) // <---- magic here!
+    return Container(content)
+}
+
+class Bar(val arg: Int)
+
+fun main() {
+    val container = myContainer<Bar>(114514)
+    val bar = container.content // <---- It's [Bar] instance with arg=114514 here!
+}
+```
+
 ## Apply plugin
 
 Recommended version alignments:
 
 | Kotlin | kotlin-newInstance-gradle |
 |--------|---------------------------|
-| 2.0.0  | \>= 0.0.2-beta            |
+| 2.0.0  | \>= 0.0.3-beta            |
 
 ```kotlin
 // Using the plugins DSL
