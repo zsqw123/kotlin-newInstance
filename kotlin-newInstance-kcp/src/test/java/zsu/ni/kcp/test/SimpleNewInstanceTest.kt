@@ -3,11 +3,8 @@ package zsu.ni.kcp.test
 import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile
 import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
-import org.jetbrains.kotlin.config.JvmTarget
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-
-import zsu.ni.kcp.NewInstanceKCP
 
 @OptIn(ExperimentalCompilerApi::class)
 class SimpleNewInstanceTest {
@@ -34,13 +31,7 @@ class SimpleNewInstanceTest {
     """
         )
 
-        val compilation = KotlinCompilation().apply {
-            jvmTarget = JvmTarget.JVM_17.description
-            sources = listOf(kotlinSource)
-            compilerPluginRegistrars = listOf(NewInstanceKCP())
-            inheritClassPath = true
-            messageOutputStream = System.out
-        }.compile()
+        val compilation = compileKotlin(kotlinSource)
         println(compilation.generatedFiles)
         Assertions.assertEquals(KotlinCompilation.ExitCode.OK, compilation.exitCode)
 
@@ -76,13 +67,7 @@ class SimpleNewInstanceTest {
     """
         )
 
-        val compilation = KotlinCompilation().apply {
-            jvmTarget = JvmTarget.JVM_17.description
-            sources = listOf(kotlinSource)
-            compilerPluginRegistrars = listOf(NewInstanceKCP())
-            inheritClassPath = true
-            messageOutputStream = System.out
-        }.compile()
+        val compilation = compileKotlin(kotlinSource)
         println(compilation.generatedFiles)
         Assertions.assertEquals(KotlinCompilation.ExitCode.OK, compilation.exitCode)
 
